@@ -1,7 +1,5 @@
 package hiber.model;
 
-import org.hibernate.annotations.Cascade;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,16 +7,10 @@ import javax.persistence.*;
 public class User {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
     @MapsId()
-//    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)//(mappedBy = "user", cascade = CascadeType.ALL)
-//     @JoinColumn(nullable = true)
-//    @PrimaryKeyJoinColumn
-//    @Transient
     private Car car;
 
     @Column(name = "name")
