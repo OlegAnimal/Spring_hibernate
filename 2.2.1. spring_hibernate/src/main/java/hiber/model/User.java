@@ -1,5 +1,7 @@
 package hiber.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
@@ -7,8 +9,17 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToOne
+    @MapsId()
+//    @Cascade(value = org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)//(mappedBy = "user", cascade = CascadeType.ALL)
+//     @JoinColumn(nullable = true)
+//    @PrimaryKeyJoinColumn
+//    @Transient
+    private Car car;
 
     @Column(name = "name")
     private String firstName;
@@ -18,12 +29,15 @@ public class User {
 
     @Column(name = "email")
     private String email;
-//        @OneToOne (mappedBy = "id")
-//    @MapsId
-//    @JoinColumn(name = "car_id", referencedColumnName = "id")
-//   private Car user_car;
 
     public User() {
+    }
+
+    public User(String firstName, String lastName, String email, Car car) {
+        this.car = car;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
     public User(String firstName, String lastName, String email) {
@@ -31,53 +45,20 @@ public class User {
         this.lastName = lastName;
         this.email = email;
     }
-    //мои тесты
 
-
-//    public User(String firstName, String lastName, String email, Car user_car) {
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.user_car = user_car;
-//    }
-//
-//    public Car getUser_car() {
-//        return user_car;
-//    }
-//
-//    public void setUser_car(Car user_car) {
-//        this.user_car = user_car;
-//    }
-
-    public Long getId() {
-        return id;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public String toString() {
+        return "User{" +
+//                "car=" + car +
+                ", id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
+
